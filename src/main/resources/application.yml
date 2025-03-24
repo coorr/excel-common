@@ -1,0 +1,6 @@
+content:
+  type:
+    version:
+      "2007": application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+      "1997": application/vnd.ms-excel
+
