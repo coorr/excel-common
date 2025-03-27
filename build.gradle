@@ -1,20 +1,72 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.10'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'java-library'
+	id "com.vanniktech.maven.publish" version "0.28.0"
+	id 'signing'
 }
 
-group = 'com.github.coorr'
+repositories {
+	mavenCentral()
+}
+
+tasks.withType(Javadoc) {
+	options {
+		encoding 'UTF-8'
+	}
+}
+
+signing {
+	sign publishing.publications
+}
+
+mavenPublishing {
+	publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+	signAllPublications()
+	coordinates("io.github.coorr", "excel-common", "0.0.1")
+
+	// POM 설정
+	pom {
+		name = 'excel-common'
+		description = 'SpringBoot common maven validation enums'
+		url = '<https://github.com/coorr/excel-common>'
+
+		// 라이선스 정보
+		licenses {
+			license {
+				name = 'The Apache License, Version 2.0'
+				url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+			}
+		}
+
+		// 개발자 정보
+		developers {
+			developer {
+				id = 'coorr'
+				name = 'JinSeong Kim'
+				email = 'wlsdiqkdrk@gmail.com'
+			}
+			// 다른 개발자 정보 추가 가능...
+		}
+
+		scm {
+			connection = 'scm:git:github.com/coorr/excel-common.git'
+			developerConnection = 'scm:git:ssh://github.com:coorr/excel-common.git'
+			url = '<https://github.com/coorr/excel-common/tree/master>'
+		}
+	}
+}
+
+group = 'io.github.coorr'
 version = '0.0.1'
 
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
 	}
-}
-
-repositories {
-	mavenCentral()
 }
 
 dependencies {
@@ -33,8 +85,4 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
 }
