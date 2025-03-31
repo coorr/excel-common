@@ -26,7 +26,7 @@ signing {
 mavenPublishing {
 	publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
 	signAllPublications()
-	coordinates("io.github.coorr", "excel-common", "0.0.1")
+	coordinates("io.github.coorr", "excel-common", "0.0.2")
 
 	// POM 설정
 	pom {
